@@ -3,6 +3,7 @@ package com.spring.swagger.controller;
 import com.spring.swagger.model.Employee;
 import com.spring.swagger.repo.EmployeeRepo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,8 +16,7 @@ import java.util.List;
 
 
 
-@Api(value = "This Is Employee Controller")
-@Tag(name = "Employee Controller Layer", description = "Controller Layer")
+@Api(description = "Employee Controller Layer")
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
@@ -24,7 +24,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepo employeeRepo;
 
-    @Tag(name = "Employee Controller Layer")
+
     //http://localhost:8080/api/v1/employees
     @GetMapping("/employees")
     public List<Employee> employees(){
@@ -32,11 +32,7 @@ public class EmployeeController {
     }
 
 
-   @Operation(description = "Show Employee", summary = "Show Employee",tags = "Employee Controller Layer",
-           responses = {
-           @ApiResponse(responseCode = "200", description = "Success")
-           }
-   )
+    @ApiOperation(value = "Get Employee", notes = "You Must Get Object of Employee")
     //http://localhost:8080/api/v1/employee?id=
     @GetMapping("/employee")
     public ResponseEntity<Employee> getEmployee(@RequestParam int id){
@@ -48,11 +44,7 @@ public class EmployeeController {
 
 
 
-    @Operation(description = "Save Employee", summary = "Save Employee", tags = "Employee Controller Layer",
-        responses ={
-            @ApiResponse(responseCode = "201", description = "Created")
-        }
-    )
+    @ApiOperation(value = "Save Employee", notes = "You Must Save Object Of Employee")
     //http://localhost:8080/api/v1/employee
     @PostMapping("/employee")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
@@ -63,11 +55,7 @@ public class EmployeeController {
     }
 
 
-    @Operation(description = "Edit Employee", summary = "Edit Employee", tags = "Employee Controller Layer",
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Success")
-        }
-    )
+    @ApiOperation(value = "Edit Employee", notes = "You Must Edit Object Of Employee")
     //http://localhost:8080/api/v1/employee
     @PutMapping("/employee")
     public Employee updateEmployee(@RequestBody Employee employee){
@@ -76,11 +64,7 @@ public class EmployeeController {
 
 
 
-    @Operation(description = "Delete Employee", summary = "Delete Employee", tags = "Employee Controller Layer",
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Success")
-        }
-    )
+    @ApiOperation(value = "Delete Employee", notes = "You Must Delete Object Of Employee")
     //http://localhost:8080/api/v1/employee?id=
     @DeleteMapping("/employee")
     public void deleteEmployee(@RequestParam int id){
