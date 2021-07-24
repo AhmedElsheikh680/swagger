@@ -32,11 +32,18 @@ public class EmployeeController {
     }
 
 
-    @Tag(name = "Employee Controller Layer")
+   @Operation(description = "Show Employee", summary = "Show Employee",tags = "Employee Controller Layer",
+           responses = {
+           @ApiResponse(responseCode = "200", description = "Success")
+           }
+   )
     //http://localhost:8080/api/v1/employee?id=
     @GetMapping("/employee")
-    public Employee getEmployee(@RequestParam int id){
-        return employeeRepo.findById(id).get();
+    public ResponseEntity<Employee> getEmployee(@RequestParam int id){
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                employeeRepo.findById(id).get()
+        );
     }
 
 
@@ -55,14 +62,25 @@ public class EmployeeController {
 
     }
 
-    @Tag(name = "Employee Controller Layer")
+
+    @Operation(description = "Edit Employee", summary = "Edit Employee", tags = "Employee Controller Layer",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Success")
+        }
+    )
     //http://localhost:8080/api/v1/employee
     @PutMapping("/employee")
     public Employee updateEmployee(@RequestBody Employee employee){
         return employeeRepo.save(employee);
     }
 
-    @Tag(name = "Employee Controller Layer")
+
+
+    @Operation(description = "Delete Employee", summary = "Delete Employee", tags = "Employee Controller Layer",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Success")
+        }
+    )
     //http://localhost:8080/api/v1/employee?id=
     @DeleteMapping("/employee")
     public void deleteEmployee(@RequestParam int id){
